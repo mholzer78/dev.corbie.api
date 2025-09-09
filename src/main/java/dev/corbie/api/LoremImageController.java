@@ -1,41 +1,34 @@
 package dev.corbie.api;
 
-import java.io.File;
-import java.util.logging.Logger;
-import java.util.Arrays;
-import java.util.ArrayList;
-import jakarta.servlet.http.HttpServletRequest;
-
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoremImageController {
+    private String defaultColor = "ffd801";
+
     @RequestMapping("/loremimage")
     public ResponseEntity<byte[]> downloadSvgImage() {
         return ResponseEntity.ok()
             .headers(getHeader())
-            .body(getSVG(400,300,"ffd801").getBytes());
+            .body(getSVG(400,300,defaultColor).getBytes());
     }
 
     @RequestMapping("/loremimage/{width}")
     public ResponseEntity<byte[]> downloadSvgImage(@PathVariable String width) {
         return ResponseEntity.ok()
             .headers(getHeader())
-            .body(getSVG(Integer.parseInt(width),Integer.parseInt(width),"ffd801").getBytes());
+            .body(getSVG(Integer.parseInt(width),Integer.parseInt(width),defaultColor).getBytes());
     }
 
     @RequestMapping("/loremimage/{width}/{height}")
     public ResponseEntity<byte[]> downloadSvgImage(@PathVariable String width, @PathVariable String height) {
         return ResponseEntity.ok()
             .headers(getHeader())
-            .body(getSVG(Integer.parseInt(width),Integer.parseInt(height),"ffd801").getBytes());
+            .body(getSVG(Integer.parseInt(width),Integer.parseInt(height),defaultColor).getBytes());
     }
 
     @RequestMapping("/loremimage/{width}/{height}/{color}")
@@ -65,7 +58,7 @@ public class LoremImageController {
             .append(String.format("<style>@font-face {font-family: 'SourceCode';src:url('/fonts/SourceCodePro-Regular.otf.woff')format('woff2'),url('/fonts/SourceCodePro-Regular.otf.woff2')format('woff2');} * {font: normal %spx 'SourceCode';}</style>", fontSize))
             .append(String.format("<rect x='0' y='0' width='%s' height='%s' fill='#%s'/>",width, height, color))
             .append(String.format(svgText, (width/2), ((height / 2) - fontSize), fontSize, textColor, width))
-            .append(String.format(svgText, (width/2), ((height / 2)), fontSize, textColor, "x"))
+            .append(String.format(svgText, (width/2), (height / 2), fontSize, textColor, "x"))
             .append(String.format(svgText, (width/2), ((height / 2) + fontSize), fontSize, textColor, height))
             .append(String.format("<svg x='%s' y='%s' width='%s' height='%s' viewBox='0 0 550 640'><g stroke='#000' stroke-width='10'><g fill='#444'><circle cx='270' cy='370' r='250'/><circle cx='270' cy='220' r='200'/></g><g fill='#fff'><circle cx='195' cy='175' r='70'/><circle cx='345' cy='175' r='70'/></g></g><circle cx='195' cy='175' r='40'/><circle cx='345' cy='175' r='40'/><path d='m145 370c0-175 250-175 250 0l-125 250z' fill='#ffd801' stroke='#000' stroke-linejoin='round' stroke-width='10'/></svg>", (width - logoWidth - 10), (height - logoHeight - 10), logoWidth, logoHeight))
             .append("</svg>")
