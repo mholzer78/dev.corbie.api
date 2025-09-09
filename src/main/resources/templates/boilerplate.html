@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>api @ corbie.dev</title>
+    <link rel="stylesheet" href="css/styles.css" media="all" />
+  </head>
+  <body>
+    <header>
+      <div><img src="images/corbie.svg" width="50" alt="corbie" /></div>
+      <div>api.corbie.dev</div>
+    </header>
+
+    <section>
+      <div class="row">
+        <div class="column auto">
+          <div class="box">
+            <div class="title">
+              <div class="inner">
+                <h1 th:text="${headline}"></h1>
+              </div>
+            </div>
+            <div class="content">
+              <div th:each="item: ${features}">
+                <div th:text="${item}"></div>
+              </div>
+              <div th:each="item: ${links}">
+                <a th:href="${item.url}" th:text="${item.text}"></a> <span th:if="${!#strings.isEmpty(item.desc)}" th:text="${item.desc}"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
