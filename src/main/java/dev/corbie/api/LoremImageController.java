@@ -3,35 +3,35 @@ package dev.corbie.api;
 import org.springframework.stereotype.Controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class LoremImageController {
     private String defaultColor = "ffd801";
 
-    @RequestMapping("/loremimage")
+    @GetMapping("/loremimage")
     public ResponseEntity<byte[]> downloadSvgImage() {
         return ResponseEntity.ok()
             .headers(getHeader())
             .body(getSVG(400,300,defaultColor).getBytes());
     }
 
-    @RequestMapping("/loremimage/{width}")
+    @GetMapping("/loremimage/{width}")
     public ResponseEntity<byte[]> downloadSvgImage(@PathVariable String width) {
         return ResponseEntity.ok()
             .headers(getHeader())
             .body(getSVG(Integer.parseInt(width),Integer.parseInt(width),defaultColor).getBytes());
     }
 
-    @RequestMapping("/loremimage/{width}/{height}")
+    @GetMapping("/loremimage/{width}/{height}")
     public ResponseEntity<byte[]> downloadSvgImage(@PathVariable String width, @PathVariable String height) {
         return ResponseEntity.ok()
             .headers(getHeader())
             .body(getSVG(Integer.parseInt(width),Integer.parseInt(height),defaultColor).getBytes());
     }
 
-    @RequestMapping("/loremimage/{width}/{height}/{color}")
+    @GetMapping("/loremimage/{width}/{height}/{color}")
     public ResponseEntity<byte[]> downloadSvgImage(@PathVariable String width, @PathVariable String height, @PathVariable String color) {
         return ResponseEntity.ok()
             .headers(getHeader())

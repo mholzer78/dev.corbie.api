@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
     
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("headline", "welcome to my api landingpage")
         .addAttribute("features", Arrays.asList(
